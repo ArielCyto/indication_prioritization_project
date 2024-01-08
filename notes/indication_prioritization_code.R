@@ -13,7 +13,7 @@ gene_exp_data <- get_outputs_dist("wf-3a3109e1f0")$output.rds
 # define effector genes by the user
 effector_genes <- c('BRCA1','BRCA2', 'HOXB13')
 
-# run results
+# run results - few examples
 rank_groups_by_genes(effector_genes,10)
 rank_groups_by_genes('CD4',100)
 rank_groups_by_genes(c('CD4', 'Cd8'),100) # should be failing but suggest alternative names
