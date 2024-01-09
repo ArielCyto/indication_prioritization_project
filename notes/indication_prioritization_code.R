@@ -15,7 +15,9 @@ effector_genes <- c('BRCA1','BRCA2', 'HOXB13')
 
 # run results - few examples
 rank_groups_by_genes(effector_genes,10)
+rank_groups_by_genes(effector_genes,10, 'CI_high')
 rank_groups_by_genes('CD4',100)
+rank_groups_by_genes('CD4',100, 'median')
 rank_groups_by_genes(c('CD4', 'Cd8'),100) # should be failing but suggest alternative names
 rank_groups_by_genes(c('CD4', 'CD8A', 'CD8B'),100)
 rank_groups_by_genes('BRCA2')

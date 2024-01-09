@@ -53,7 +53,7 @@ generate_output_object <- function(data_table_after_boots){
     dplyr::group_by(tissue_io, cluster_annotation) %>%
     dplyr::summarise(
       type_tme = unique(type_tme),
-      score =unique(t0),
+      median =unique(t0),
       CI_low = unique(CI_low),
       CI_high = unique(CI_high),
       n_per_indication_TME = unique(n_per_indication_TME),
@@ -65,11 +65,13 @@ generate_output_object <- function(data_table_after_boots){
   return(output_object)
 }
 
-print_ranking_plot <- function(output_object,gene_list){
-  output_object$type_tme = with(output_object, reorder(type_tme, score))
+print_ranking_plot <- function(output_object,gene_list, rank_by){
+  output_object$type_tme = with(output_object, reorder(type_tme, output_object[[rank_by]]))
+  output_object$rank_by <- output_object[[rank_by]] # syntax for using ggplot
   print(output_object %>%
           slice_head(n = 10) %>%
-          ggplot(aes(x = score, y = type_tme)) + ggtitle(paste0("Ranking by ", paste(gene_list, collapse = ', ')))+
+          ggplot(aes(x = rank_by, y = type_tme)) + ggtitle(paste0("Ranking by ", paste(gene_list, collapse = ', ')))+
+          labs(x = as.character(rank_by))+
           geom_point(alpha = 0.8, size = 3, aes(colour = factor(cluster_annotation))) +
           geom_errorbar(aes(xmin = CI_low, xmax = CI_high),
                         width = .2, size = .8,
@@ -77,8 +79,10 @@ print_ranking_plot <- function(output_object,gene_list){
 }
 
 
-print_ranking_table <- function(output_object, top = 30){
-  output_object_for_client <- data.frame(output_object[order(output_object$score, decreasing = TRUE),])
+print_ranking_table <- function(output_object, top = 30, rank_by = rank_by){
+  output_object_for_client <- data.frame(output_object[order(output_object[[rank_by]], decreasing = TRUE),])
+  output_object_for_client$rank <- 1:(dim(output_object_for_client)[1])
+  output_object_for_client <- relocate(output_object_for_client, rank)
   head(output_object_for_client,top)
 }
 
@@ -87,7 +91,7 @@ print_ranking_table <- function(output_object, top = 30){
 
 
 # main function
-rank_groups_by_genes <- function(gene_list, repeats = 5){ # need to add option for spesific TME/ indication
+rank_groups_by_genes <- function(gene_list, repeats = 5, rank_by = 'CI_low'){ # need to add option for specific TME/ indication
  
   # check if the input list is valid
   submit = check_input_genes(gene_list)  
@@ -120,10 +124,10 @@ rank_groups_by_genes <- function(gene_list, repeats = 5){ # need to add option f
     
     # visualize results
     # print results plot
-    print_ranking_plot(output_object, gene_list)
+    print_ranking_plot(output_object, gene_list, rank_by)
     
     # print results numeric
-    print_ranking_table(output_object,30)
+    print_ranking_table(output_object,30, rank_by)
     
     
   }

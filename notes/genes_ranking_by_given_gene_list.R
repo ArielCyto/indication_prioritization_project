@@ -28,7 +28,6 @@ for (gene in effector_genes){
       print("optional alternatives: ")
       print(optional_alternative_name)
     }
-    
     break
   }
 }
@@ -75,14 +74,14 @@ if (submit == TRUE){
   
   data_table <- get_statistics(data_table,repeats =20)
   
-# organize the results - sum the 4053 samples to 30 rows by the type_tme (change "t0" name to "score")
+# organize the results - sum the 4053 samples to 30 rows by the type_tme (change "t0" name to "median")
   output_object <-
     data_table %>%
     dplyr::group_by(tissue_io) %>%
     dplyr::group_by(tissue_io, cluster_annotation) %>%
     dplyr::summarise(
       type_tme = unique(type_tme),
-      score =unique(t0),
+      median =unique(t0),
       CI_low = unique(CI_low),
       CI_high = unique(CI_high),
       n_per_indication_TME = unique(n_per_indication_TME),
@@ -94,17 +93,19 @@ if (submit == TRUE){
   # visualize results
   # print results plot
   
-  output_object$type_tme = with(output_object, reorder(type_tme, score))
+  output_object$type_tme = with(output_object, reorder(type_tme, CI_low))
   print(output_object %>%
     slice_head(n = 10) %>%
-    ggplot(aes(x = score, y = type_tme)) + ggtitle(paste0("Ranking by ", paste(effector_genes, collapse = ', ')))+
+    ggplot(aes(x = CI_low, y = type_tme)) + ggtitle(paste0("Ranking by ", paste(effector_genes, collapse = ', ')))+
     geom_point(alpha = 0.8, size = 3, aes(colour = factor(cluster_annotation))) +
     geom_errorbar(aes(xmin = CI_low, xmax = CI_high),
                   width = .2, size = .8,
                   position = "identity", colour = "darkgray"))
   
-  # print results numeric
-  output_object_for_client <- data.frame(output_object[order(output_object$score, decreasing = TRUE),])
+  # print results numeric (order by "CI_low" as default)
+  output_object_for_client <- data.frame(output_object[order(output_object$CI_low, decreasing = TRUE),])
+  output_object_for_client$rank <- 1:(dim(output_object_for_client)[1])
+  output_object_for_client <- relocate(output_object_for_client, rank)
   head(output_object_for_client,30)
   
 }
