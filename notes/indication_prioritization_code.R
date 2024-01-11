@@ -7,8 +7,10 @@ devtools::load_all("~/capsule/code/cytoreason.ccm.pipeline/")
 source("~/capsule/code/indication_prioritization_project/R/indication_prioritization_func.R") # temporal location for the project functions
 
 # load input data (still need to QC)
-# this object has to be on the BQ as a frozen source
-gene_exp_data <- get_outputs_dist("wf-3a3109e1f0")$output.rds
+# these objects have to be on the BQ as a frozen source
+expression_matrix <- get_outputs_dist("wf-219a0c80f1")$output.rds
+annotation_table <- get_outputs_dist("wf-c546d82645")$output.rds
+
 
 # define effector genes by the user
 effector_genes <- c('BRCA1','BRCA2', 'HOXB13')
