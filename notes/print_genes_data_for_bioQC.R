@@ -19,3 +19,7 @@ for (disease_name in unique(annotation_table$indication)){
   print(data.frame(head(disease_top_genes, 20)))
 }
 
+
+# check random gene list
+random_genes <- sample(x=colnames(expression_matrix), size=19)
+rank_groups_by_genes(random_genes)
