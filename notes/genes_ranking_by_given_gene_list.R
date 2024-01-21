@@ -10,7 +10,7 @@ expression_matrix <- get_outputs_dist("wf-219a0c80f1")$output.rds
 annotation_table <- get_outputs_dist("wf-c546d82645")$output.rds
 
 # define effector genes by the user
-effector_genes <- c('BRCA1','BRCA2', 'CD4')
+effector_genes <- c('ABCA1',	'ABCA2', 'ABCA3', 'NAT2')
 
 
 # check if the genes are available:

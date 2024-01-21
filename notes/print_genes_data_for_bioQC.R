@@ -23,3 +23,14 @@ for (disease_name in unique(annotation_table$indication)){
 # check random gene list
 random_genes <- sample(x=colnames(expression_matrix), size=19)
 rank_groups_by_genes(random_genes)
+
+# Checking median / average with Lital
+stromal_genes <- c('FAP','ACTA2','TGFB1','PDGFA','COL1A1','COL1A2','COL3A1','MMP2','CXCL12','MMP9','FGF1','CCL2','ZEB1','CD1B','COL11A1','INHBA','THBS2','COL5A2')
+rank_groups_by_genes(stromal_genes)
+inflamed_markers <- c('PDCD1','IFNG','STAT1','CCL5','CXCL9','CXCL10','HLA-A','TNFAIP1','IDO1','PDCD1LG2','STAT3','FOXP3','CD4','CD3D','CD8A','CD274','CTLA4','LAG3','ACOX2')
+rank_groups_by_genes(inflamed_markers)
+lital_test1 <- c('SIRPA','CD47', 'CD80', 'CD86', 'CD163')
+rank_groups_by_genes(lital_test1)
+lital_test2 <- c('CD28', 'CTLA4', 'CD27', 'PDCD1', 'CBLB', 'EGF', 'CD47', 'TGFB1')
+rank_groups_by_genes(lital_test2)
+
