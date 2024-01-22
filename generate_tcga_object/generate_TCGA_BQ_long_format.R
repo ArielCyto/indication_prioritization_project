@@ -46,11 +46,11 @@ for (gene in unique(result_table$gene_id)){
 
 # remove ".1" for dup genes c('ABCF2.1', 'ABCF2', 'ECE2', 'ECE2.1', 'HSPA14', 'HSPA14.1', 'POLR2J3', 'POLR2J3.1',
 # 'TMSB15B', 'TMSB15B.1')
-# result_table$gene_id[result_table$gene_id == "ABCF2.1"] <- "ABCF2"
-# result_table$gene_id[result_table$gene_id == "ECE2.1"] <- "ECE2"
-# result_table$gene_id[result_table$gene_id == "HSPA14.1"] <- "HSPA14"
-# result_table$gene_id[result_table$gene_id == "POLR2J3.1"] <- "POLR2J3"
-# result_table$gene_id[result_table$gene_id == "TMSB15B.1"] <- "TMSB15B"
+result_table$gene_id[result_table$gene_id == "ABCF2.1"] <- "ABCF2"
+result_table$gene_id[result_table$gene_id == "ECE2.1"] <- "ECE2"
+result_table$gene_id[result_table$gene_id == "HSPA14.1"] <- "HSPA14"
+result_table$gene_id[result_table$gene_id == "POLR2J3.1"] <- "POLR2J3"
+result_table$gene_id[result_table$gene_id == "TMSB15B.1"] <- "TMSB15B"
 
 
 # Upload the final object to Cyto-cc
@@ -61,12 +61,12 @@ tags <- list(list(name="owner", value="Ariel Simon"),
 save_as_cyto_cc = function(result_table){
   library(cytoreason.cc.client)
   library(cytoreason.io)
-  save_data(result_table,"./output/io_tcga_database.csv", row.names = FALSE)
+  save_data(result_table,"./output/tcga_sample_gene_data.csv", row.names = FALSE)
 }
 
 wf <- run_function_dist(save_as_cyto_cc,
                         result_table=result_table, tags = tags,
                         image = 'eu.gcr.io/cytoreason/ci-cytoreason.ccm.pipeline-package:develop_latest') 
 
-# Cyto-CC workflow:wf-1d9e387afe
-# https://cyto-cc.cytoreason.com/workflow/wf-1d9e387afe
+# Cyto-CC workflow: wf-49c86701d3
+# https://cyto-cc.cytoreason.com/workflow/wf-49c86701d3
