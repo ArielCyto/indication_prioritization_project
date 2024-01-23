@@ -1,6 +1,7 @@
 library(checkmate)
 library(forcats)
 library(dplyr)
+library(ggpubr)
 library(boot, lib.loc = "/usr/lib/R/library")
 devtools::load_all("~/capsule/code/cytoreason.ccm.pipeline/") 
 # library(cytoreason.analytics)
@@ -21,8 +22,7 @@ gene_to_entrez <-  subset(gene_to_entrez, select = -X)
 colnames(expression_matrix) <- gene_to_entrez$entrez_id
 
 # define effector genes by the user #IFNG list
-effector_genes <- c("1234", "3122", "10563", "6352", "6772", "4818", "4283", "3903", "3902", "10663", "3824", "3001", "5551", "100049587", "26191", "942", "6503", "55423", "971", "84868", "9050", "114836", "8832", "146722", "915", "3458", "6373", "914", "1522", "3002", "3561", "3627", "11006", "5133", "6355", "4261", "6351", "10261", "5788", "283420", "8530", "3620", "3683", "999", "9051", "3003", "3133", "916", "117289", "3604")
-
+effector_genes <- sample(x=colnames(expression_matrix), size=20)
 
 # for ssGsea
 effector_expression_matrix <- t(expression_matrix) 
@@ -98,5 +98,3 @@ colnames(output_object_for_client)[colnames(output_object_for_client) == "X._TME
 
 
 head(output_object_for_client,nrow(output_object_for_client))
-
-}
