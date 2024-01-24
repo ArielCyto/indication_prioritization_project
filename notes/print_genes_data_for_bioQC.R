@@ -71,3 +71,17 @@ rank_groups_by_genes(convert_entrez_to_genes(IFNG_list))
 
 TGFB_list <- c('59', '72', '8038', '8728', '1264', '1282', '1503', '10272', '3315', '3486', '221749', '8482', '9644', '6876', '7045', '7145', '7168')
 rank_groups_by_genes(convert_entrez_to_genes(TGFB_list))
+
+
+#### Lital percentage 24/01/24
+gene_to_check <- c('FAP','ACTA2','TGFB1','PDGFA','COL1A1','COL1A2','COL3A1','MMP2','CXCL12','MMP9','FGF1','CCL2','ZEB1','CD1B','COL11A1','INHBA','THBS2','COL5A2')
+result <- rank_groups_by_genes(gene_to_check)
+# find the most common indication in the top x lines
+x = 5
+names(which.max(table(data.frame(factor(head(result$indication,x))))))
+
+# find the percent of each indication in the top y lines
+y = 15
+count_table <- head(result,y) %>% count(TME)
+count_table$percentage = count_table$n/y
+count_table
