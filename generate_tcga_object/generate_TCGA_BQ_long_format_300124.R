@@ -64,7 +64,8 @@ isTRUE(is.na(merged_data)) # need to false
 annotation_table_for_cyto_cc <- subset(annotation_table, select = -sample_id)
 rownames(annotation_table_for_cyto_cc) <- NULL
 annotation_table_for_cyto_cc <- distinct(annotation_table_for_cyto_cc)
-
+colnames(annotation_table_for_cyto_cc)[6] <- "percent_TME_in_indication"
+  
 # Upload the final object to Cyto-cc
 tags <- list(list(name="owner", value="Ariel Simon"),
              list(name="project", value="indication prioritation"),
@@ -81,4 +82,4 @@ save_as_cyto_cc = function(expression_csv, annotation_csv){
 wf <- run_function_dist(save_as_cyto_cc,
                         expression_csv=merged_data, annotation_csv=annotation_table_for_cyto_cc, tags = tags,
                         image = 'eu.gcr.io/cytoreason/ci-cytoreason.ccm.pipeline-package:develop_latest') 
-# https://cyto-cc.cytoreason.com/workflow/wf-37672b37cb
+# https://cyto-cc.cytoreason.com/workflow/wf-3dfbbd2ea9
