@@ -89,4 +89,3 @@ save_as_cyto_cc = function(result_table){
 wf <- run_function_dist(save_as_cyto_cc,
                         result_table=annotation_table_for_cyto_cc, tags = tags,
                         image = 'eu.gcr.io/cytoreason/ci-cytoreason.ccm.pipeline-package:develop_latest') 
-
