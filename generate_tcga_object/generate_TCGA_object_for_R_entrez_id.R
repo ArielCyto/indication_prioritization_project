@@ -1,0 +1,63 @@
+# load env
+library(dplyr)
+library(tidyr)
+devtools::load_all("~/capsule/code/cytoreason.ccm.pipeline/")
+install.packages('unixtools', repos = 'http://www.rforge.net/')
+library(unixtools)
+unixtools::set.tempdir("/scratch")
+
+# these objects have to be on the BQ as a frozen source
+expression_matrix <- get_outputs_dist("wf-219a0c80f1")$output.rds
+expression_matrix <- subset(expression_matrix, select = -c(effector_genes_average))
+annotation_table <- get_outputs_dist("wf-1e6d943964")$output.rds 
+table(annotation_table$group) # check the LUAD, LUSC
+
+# Add entrez
+gene_to_entrez <- read.csv("capsule/code/indication_prioritization_project/gene-to-entrez.csv")
+# gene_to_entrez <-  subset(gene_to_entrez, select = -X)
+colnames(expression_matrix) <- gene_to_entrez$entrez_id
+# check 
+expression_matrix[1:5,1:5]
+
+
+# add new TME names
+annotation_table$TME <- as.character(annotation_table$TME)
+annotation_table$TME[annotation_table$TME == "stromal epithelial"] <- "stromal_epithelial"
+annotation_table$TME[annotation_table$TME == "dom lymph myeloid"] <- "inflamed"
+annotation_table$TME[annotation_table$TME == "dom lymph myeloid mild stromal"] <- "inflamed_mild_stromal"
+annotation_table$TME[annotation_table$TME == "stromal dom myeloid lymph"] <- "inflamed_stromal"
+table(annotation_table$TME) # check
+
+# change the corresponding group names
+annotation_table$group <- paste0(annotation_table$indication,"_",annotation_table$TME)
+table(annotation_table$group)
+
+
+# change column names according to https://cytoreason.atlassian.net/wiki/spaces/AR/pages/3705667638/Indication+Prioritization+for+IO+-+R+SDK+tool+-+Engineering+HLD
+annotation_table_for_cyto_cc <- annotation_table
+annotation_table_for_cyto_cc$dataset_id = "TCGA"
+annotation_table_for_cyto_cc$term_id <- paste0(annotation_table_for_cyto_cc$dataset_id,"_",annotation_table_for_cyto_cc$indication,"_",annotation_table_for_cyto_cc$group)
+annotation_table_for_cyto_cc$group_variable <- "data_tme"
+colnames(annotation_table_for_cyto_cc)[colnames(annotation_table_for_cyto_cc) == "indication"] <- "condition"
+colnames(annotation_table_for_cyto_cc)[colnames(annotation_table_for_cyto_cc) == "TME"] <- "sub_population"
+colnames(annotation_table_for_cyto_cc)[colnames(annotation_table_for_cyto_cc) == "n_per_indication"] <- "n_sample_condition"
+colnames(annotation_table_for_cyto_cc)[colnames(annotation_table_for_cyto_cc) == "%_TME_in_indication"] <- "percent_sample_condition"
+
+# Upload the final object to Cyto-cc
+tags <- list(list(name="owner", value="Ariel Simon"),
+             list(name="project", value="indication prioritation"),
+             list(name="data", value="TCGA internal R tables for indication prioritization"),
+             list(name="data_requests", value="https://cytoreason.atlassian.net/wiki/spaces/AR/pages/3705667638/Indication+Prioritization+for+IO+-+R+SDK+tool+-+Engineering+HLD"))
+
+save_as_cyto_cc = function(expression_csv, annotation_csv){
+  library(cytoreason.cc.client)
+  library(cytoreason.io)
+  save_data(expression_csv,"./output/tcga_sample_gene_data.csv", row.names = FALSE)
+  save_data(annotation_csv,"./output/tcga_annotation_data.csv", row.names = FALSE)
+  
+}
+
+wf <- run_function_dist(save_as_cyto_cc,
+                        expression_csv=expression_matrix, annotation_csv=annotation_table_for_cyto_cc, tags = tags,
+                        image = 'eu.gcr.io/cytoreason/ci-cytoreason.ccm.pipeline-package:develop_latest') 
+# https://cyto-cc.cytoreason.com/workflow/wf-2c26fb32e8
