@@ -1,0 +1,32 @@
+"","rank","group","condition","sub_population","median","CI_low","CI_high","n_samples","percent_sample_condition"
+"1",1,"lung cancer - LUSC_inflamed","lung cancer - LUSC","inflamed",2.3952027606163,2.27768372095168,2.46668504126774,256,24.9027237354086
+"2",2,"breast cancer_inflamed","breast cancer","inflamed",2.34873398803273,2.2675849410576,2.41313539601119,160,16.7014613778706
+"3",3,"lung cancer - LUAD_inflamed","lung cancer - LUAD","inflamed",2.27716498905866,2.17233796970891,2.34918508265929,256,24.9027237354086
+"4",4,"head and neck cancer_inflamed","head and neck cancer","inflamed",1.88019003726195,1.88019003726195,2.03050557230776,130,25.8964143426295
+"5",5,"lung cancer - LUSC_inflamed_mild_stromal","lung cancer - LUSC","inflamed_mild_stromal",1.94845999075103,1.85524229943873,2.07258566046255,98,9.53307392996109
+"6",6,"prostate cancer_inflamed","prostate cancer","inflamed",1.85510396024496,1.67022548596436,1.96698764365365,14,3.32541567695962
+"7",7,"bladder cancer_inflamed","bladder cancer","inflamed",1.86294831768662,1.6273759484493,2.04147932607236,47,11.4355231143552
+"8",8,"colorectal cancer_inflamed_mild_stromal","colorectal cancer","inflamed_mild_stromal",1.76785722889508,1.62006700891674,1.9786509595638,25,5.30785562632697
+"9",9,"head and neck cancer_inflamed_mild_stromal","head and neck cancer","inflamed_mild_stromal",1.62663284730238,1.55301990521847,1.8378306817839,39,7.76892430278885
+"10",10,"lung cancer - LUAD_inflamed_stromal","lung cancer - LUAD","inflamed_stromal",1.5182455586988,1.46487902090436,1.63803184387744,423,41.147859922179
+"11",11,"breast cancer_inflamed_mild_stromal","breast cancer","inflamed_mild_stromal",1.78497081909983,1.4513917346372,2.04281395068857,42,4.38413361169102
+"12",12,"lung cancer - LUSC_inflamed_stromal","lung cancer - LUSC","inflamed_stromal",1.44814679171641,1.38514364818865,1.55698124533957,423,41.147859922179
+"13",13,"colorectal cancer_inflamed","colorectal cancer","inflamed",1.60570322296546,1.36363541207162,1.69841270318695,33,7.00636942675159
+"14",14,"lung cancer - LUAD_inflamed_mild_stromal","lung cancer - LUAD","inflamed_mild_stromal",1.60533597611338,1.22319121472373,1.68814680877743,98,9.53307392996109
+"15",15,"bladder cancer_inflamed_mild_stromal","bladder cancer","inflamed_mild_stromal",1.78621172878616,1.21365024578825,1.80156105837026,40,9.7323600973236
+"16",16,"colorectal cancer_inflamed_stromal","colorectal cancer","inflamed_stromal",1.17097451370478,1.13090068508932,1.25163223277625,115,24.416135881104
+"17",17,"lung cancer - LUAD_stromal_epithelial","lung cancer - LUAD","stromal_epithelial",1.14790975478439,1.06109805657996,1.612662619212,118,11.4785992217899
+"18",18,"bladder cancer_inflamed_stromal","bladder cancer","inflamed_stromal",1.05062911072455,1.03592570355837,1.09212594597342,71,17.2749391727494
+"19",19,"head and neck cancer_inflamed_stromal","head and neck cancer","inflamed_stromal",1.03325916469917,0.93466349747855,1.131009521515,108,21.5139442231076
+"20",20,"breast cancer_inflamed_stromal","breast cancer","inflamed_stromal",0.939928488982067,0.934309424021516,1.06195324619848,283,29.5407098121086
+"21",21,"lung cancer - LUSC_stromal_epithelial","lung cancer - LUSC","stromal_epithelial",0.846375472388984,0.819913975569827,0.996407775754796,118,11.4785992217899
+"22",22,"lung cancer - LUAD_epithelial","lung cancer - LUAD","epithelial",0.646308900939929,0.541955775849969,0.75820477823382,133,12.9377431906615
+"23",23,"prostate cancer_stromal_epithelial","prostate cancer","stromal_epithelial",0.525548911421973,0.50183783488755,0.531894677347202,407,96.6745843230404
+"24",24,"colorectal cancer_stromal_epithelial","colorectal cancer","stromal_epithelial",0.55009919623813,0.431950851588443,0.650550412524638,76,16.135881104034
+"25",25,"head and neck cancer_stromal_epithelial","head and neck cancer","stromal_epithelial",0.511475814874212,0.339921497295887,0.601554294215866,132,26.2948207171315
+"26",26,"lung cancer - LUSC_epithelial","lung cancer - LUSC","epithelial",0.418560229010065,0.328861944756338,0.581409478944019,133,12.9377431906615
+"27",27,"breast cancer_stromal_epithelial","breast cancer","stromal_epithelial",0.261360831716983,0.192823383396639,0.298688988713795,473,49.3736951983299
+"28",28,"colorectal cancer_epithelial","colorectal cancer","epithelial",0.198550457823815,0.168143422092043,0.329094616517387,222,47.1337579617834
+"29",29,"bladder cancer_stromal_epithelial","bladder cancer","stromal_epithelial",0.224923696123596,0.097422902311209,0.434088130953809,77,18.7347931873479
+"30",30,"head and neck cancer_epithelial","head and neck cancer","epithelial",-0.378432774292796,-0.532955817204104,-0.226547492034476,93,18.5258964143426
+"31",31,"bladder cancer_epithelial","bladder cancer","epithelial",-0.523430681618488,-0.579171205230658,-0.442293579368654,176,42.8223844282238
