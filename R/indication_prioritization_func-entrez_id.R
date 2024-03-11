@@ -92,13 +92,12 @@ rank_groups_by_genes <- function(gene_list, repeats = 5, rank_by = 'CI_low'){ # 
     # step 1 - per sample (row), calculate the selected gene_list average expression
     if (length(gene_list) > 1)
     {
-      expression_matrix$gene_list_average <- rowMedians(as.matrix(expression_matrix[,gene_list]))
-    #  expression_matrix$gene_list_average <- rowMeans(expression_matrix[,gene_list])
+       expression_matrix$gene_list_average <- rowMedians(as.matrix(expression_matrix[,gene_list]))
+      # expression_matrix$gene_list_average <- rowMeans(expression_matrix[,gene_list])
       
     }else{
       expression_matrix$gene_list_average <- expression_matrix[,gene_list]
     }
-    
     # work with smaller object of gene_exp_data with all the necessary columns
     data_table <- annotation_table
     data_table$gene_list_average <- expression_matrix$gene_list_average

@@ -15,10 +15,11 @@ expression_matrix <- read.csv(get_task_outputs("wf-2c26fb32e8",0)["tcga_sample_g
 annotation_table <-  read.csv(get_task_outputs("wf-2c26fb32e8",0)["tcga_annotation_data.csv"])
 colnames(expression_matrix) <- lapply(colnames(expression_matrix), gsub, pattern='X', replacement='')
 
-# define effector genes by the user #IFNG list
-effector_genes <- c('12','9', '196')
+# define effector genes by the user
+effector_genes <- c('59', '72', '8038', '8728', '1264', '1282', '1503', '10272', '3315', '3486', '221749', '8482', '9644', '6876', '7045', '7145', '7168')
 
 # for ssGsea
+start.time <- Sys.time()
 effector_expression_matrix <- t(expression_matrix) 
 effector_genes_for_ssGsea <- list( "effector_genes" = effector_genes)
 
@@ -54,7 +55,7 @@ get_statistics <- function(data_table, repeats = 5) {
   return(data_table)
 }
 
-data_table <- get_statistics(data_table,repeats =20)
+data_table <- get_statistics(data_table,repeats =9999)
 
 # organize the results - sum the 4053 samples to 30 rows by the type_tme (change "t0" name to "median")
 output_object <-
@@ -91,3 +92,6 @@ output_object_for_client <- relocate(output_object_for_client, rank)
 
 
 head(output_object_for_client,nrow(output_object_for_client))
+end.time <- Sys.time()
+time.taken <- round(end.time - start.time,2)
+time.taken
