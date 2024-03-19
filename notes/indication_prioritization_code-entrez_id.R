@@ -5,7 +5,7 @@ library(dplyr)
 library(boot, lib.loc = "/usr/lib/R/library")
 devtools::load_all("~/capsule/code/cytoreason.ccm.pipeline/") 
 source("~/capsule/code/indication_prioritization_project/R/indication_prioritization_func-entrez_id.R") # temporal location for the project functions
-
+unixtools::set.tempdir("~/capsule/scratch/")
 # load input data - takes time for the first time
 expression_matrix <- read.csv(get_task_outputs("wf-2c26fb32e8",0)["tcga_sample_gene_data.csv"])
 annotation_table <-  read.csv(get_task_outputs("wf-2c26fb32e8",0)["tcga_annotation_data.csv"])
