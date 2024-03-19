@@ -40,14 +40,14 @@ get_statistics <- function(data_table, repeats = repeats) {
 }
 
 generate_output_object <- function(data_table_after_boots){
-  
-  
+
   output_object <-
     data_table_after_boots %>%
     dplyr::group_by(condition) %>%
     dplyr::group_by(condition, sub_population) %>%
+    dplyr::group_by(condition, sub_population, group) %>%
     dplyr::summarise(
-      group = unique(group),
+      subtype = unique(group_subytpe),
       median =unique(t0),
       CI_low = unique(CI_low),
       CI_high = unique(CI_high),
@@ -82,7 +82,7 @@ print_ranking_table <- function(output_object, rank_by = rank_by){
 
 # main function
 rank_groups_by_genes <- function(gene_list, repeats = 5, rank_by = 'CI_low'){ # need to add option for specific sub_population/ indication
- 
+
   # check if the input list is valid
   submit = check_input_genes(gene_list)  
 
